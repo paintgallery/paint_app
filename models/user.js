@@ -1,4 +1,4 @@
-var mongoose - require('mongoose');
+var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
 	name: {
@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
 		required: true
 	},
 	password: {
-		type: Number
+		type: String
 	}
 });
 
