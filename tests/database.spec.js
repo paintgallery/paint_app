@@ -31,18 +31,19 @@ describe('database interface', function() {
         });
     });
 
+
+    var category = new Category({
+        name: "Oil paints"
+    });
+
     it('should add category to Categorys collection', function(done) {
-        
-        var category = new Category({
-            name: "Oil paints"
-        });
 
         category.save(function(err, result) {
             if (err) {
                 console.log(err);
             }
-            
-            Category.find({ "name": "Oil paints" }).exec(function(err, gigs) {
+
+            Category.find({ "name": "Oil paints" }).exec(function(err, categorys) {
                 var name = categorys[0].name;
                 assert.equal(name, "Oil paints");
                 done();
@@ -65,7 +66,7 @@ describe('database interface', function() {
             if (err) {
                 console.log(err);
             }
-            Picture.find({ "category": category._id }).exec(function(err, products) {
+            Picture.find({ "category": category._id }).exec(function(err, pictures) {
                 var name = pictures[0].name;
                 assert.equal(name, 'Tree near the lake');
                 done();
