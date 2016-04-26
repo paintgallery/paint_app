@@ -1,6 +1,6 @@
 var assert = require('assert');
 var User = require('./../models/user');
-var Category = require('./../models/category');
+var Categories = require('./../models/categories');
 var Picture = require('./../models/picture');
 
 describe('database interface', function() {
@@ -24,6 +24,9 @@ describe('database interface', function() {
                 console.log(err);
             }
             User.find({ "name": "John" }).exec(function(err, users) {
+                if (err) {
+                    console.log(err);
+                }
                 var name = users[0].name;
                 assert.equal(name, "John");
                 done();
@@ -32,19 +35,22 @@ describe('database interface', function() {
     });
 
 
-    var category = new Category({
+    var categories = new Categories({
         name: "Oil paints"
     });
 
-    it('should add category to Categorys collection', function(done) {
+    it('should add categories to Categories collection', function(done) {
 
-        category.save(function(err, result) {
+        categories.save(function(err, result) {
             if (err) {
                 console.log(err);
             }
 
-            Category.find({ "name": "Oil paints" }).exec(function(err, categorys) {
-                var name = categorys[0].name;
+            Categories.find({ "name": "Oil paints" }).exec(function(err, categories) {
+                if (err) {
+                    console.log(err);
+                }
+                var name = categories[0].name;
                 assert.equal(name, "Oil paints");
                 done();
             });
@@ -58,7 +64,7 @@ describe('database interface', function() {
             "description": "It's a beatifull picture from ukrainian author",
             "size": "200 x 350",
             "materials": "oil and paper",
-            "category": category._id,
+            "categories": categories._id,
             "price": 100
         });
 
@@ -66,7 +72,10 @@ describe('database interface', function() {
             if (err) {
                 console.log(err);
             }
-            Picture.find({ "category": category._id }).exec(function(err, pictures) {
+            Picture.find({ "categories": categories._id }).exec(function(err, pictures) {
+                if (err) {
+                    console.log(err);
+                }
                 var name = pictures[0].name;
                 assert.equal(name, 'Tree near the lake');
                 done();
@@ -84,20 +93,26 @@ describe('database interface', function() {
                 process.exit(1);
             }
             User.find({ "name": "John" }).exec(function(err, users) {
+                if (err) {
+                    console.log(err);
+                }
                 assert.equal(users.length, 0);
                 done();
             });
         });
     });
 
-    it('should remove category from db', function(done) {
-        Category.remove({ "name": "Oil paints" }, function(err) {
+    it('should remove categories from db', function(done) {
+        Categories.remove({ "name": "Oil paints" }, function(err) {
             if (err) {
                 console.log(err);
                 process.exit(1);
             }
-            Category.find({ "name": "Oil paints" }).exec(function(err, categorys) {
-                assert.equal(categorys.length, 0);
+            Categories.find({ "name": "Oil paints" }).exec(function(err, categories) {
+                if (err) {
+                    console.log(err);
+                }
+                assert.equal(categories.length, 0);
                 done();
             });
         });
@@ -110,6 +125,9 @@ describe('database interface', function() {
                 process.exit(1);
             }
             Picture.find({ "name": "Tree near the lake" }).exec(function(err, pictures) {
+                if (err) {
+                    console.log(err);
+                }
                 assert.equal(pictures.length, 0);
                 done();
             });
