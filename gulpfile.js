@@ -28,5 +28,5 @@ gulp.task('jshint', function() {
 
 gulp.task('watch', function() {
     gulp.watch(['./*.js', 'models/*.js', './tests/*.js'], ['jshint']);
-    gulp.watch(['./tests/*.js'], ['test']);
+    // gulp.watch(['./tests/*.js'], ['test']);
 });
