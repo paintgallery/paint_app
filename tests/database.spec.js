@@ -25,13 +25,13 @@ describe('database interface', function() {
                 console.log(err);
                 process.exit(1);
             }
-            User.find({ "name": "John" }).exec(function(err, users) {
+            Users.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
                     process.exit(1);
                 }
-                var name = users[0].name;
-                assert.equal(name, "John");
+                var username = users[0].username;
+                assert.equal(username, "John");
                 done();
             });
         });
