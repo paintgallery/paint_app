@@ -15,17 +15,20 @@ describe('database interface', function() {
     it('sould be add user to Users collection', function(done) {
 
         var user = new User({
-            "name": "John",
-            "password": "doe"
+            "username": "John",
+            "password": "doe",
+            "email": "fedyshyn.roma@gmail.com"
         });
 
         user.save(function(err, result) {
             if (err) {
                 console.log(err);
+                process.exit(1);
             }
             User.find({ "name": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 var name = users[0].name;
                 assert.equal(name, "John");
@@ -44,11 +47,13 @@ describe('database interface', function() {
         categories.save(function(err, result) {
             if (err) {
                 console.log(err);
+                process.exit(1);
             }
 
             Categories.find({ "name": "Oil paints" }).exec(function(err, categories) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 var name = categories[0].name;
                 assert.equal(name, "Oil paints");
@@ -71,10 +76,12 @@ describe('database interface', function() {
         picture.save(function(err, result) {
             if (err) {
                 console.log(err);
+                process.exit(1);
             }
             Picture.find({ "categories": categories._id }).exec(function(err, pictures) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 var name = pictures[0].name;
                 assert.equal(name, 'Tree near the lake');
@@ -95,6 +102,7 @@ describe('database interface', function() {
             User.find({ "name": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 assert.equal(users.length, 0);
                 done();
@@ -111,6 +119,7 @@ describe('database interface', function() {
             Categories.find({ "name": "Oil paints" }).exec(function(err, categories) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 assert.equal(categories.length, 0);
                 done();
@@ -127,6 +136,7 @@ describe('database interface', function() {
             Picture.find({ "name": "Tree near the lake" }).exec(function(err, pictures) {
                 if (err) {
                     console.log(err);
+                    process.exit(1);
                 }
                 assert.equal(pictures.length, 0);
                 done();
