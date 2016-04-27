@@ -14,9 +14,9 @@ var PictureSchema = new mongoose.Schema({
     materials: {
         type: String
     },
-    category: {
+    categories: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Categorys',
+        ref: 'Categories',
         required: true
     },
     price: {
