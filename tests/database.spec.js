@@ -2,6 +2,7 @@ var assert = require('assert');
 var User = require('./../models/user');
 var Categories = require('./../models/categories');
 var Picture = require('./../models/picture');
+var UserController = require('./../controllers/user')
 
 describe('database interface', function() {
     var connection;
@@ -14,28 +15,31 @@ describe('database interface', function() {
 
     it('sould be add user to Users collection', function(done) {
 
+
+
         var user = new User({
             "username": "John",
             "password": "doe",
             "email": "fedyshyn.roma@gmail.com"
-        
-        });
 
-        user.save(function(err, result) {
+        });
+        UserController.add(user);
+
+        // user.save(function(err, result) {
+        //     if (err) {
+        //         console.log(err);
+        //         process.exit(1);
+        //     }
+        User.find({ "username": "John" }).exec(function(err, users) {
             if (err) {
                 console.log(err);
                 process.exit(1);
             }
-            User.find({ "username": "John" }).exec(function(err, users) {
-                if (err) {
-                    console.log(err);
-                    process.exit(1);
-                }
-                var username = users[0].username;
-                assert.equal(username, "John");
-                done();
-            });
+            var username = users[0].username;
+            assert.equal(username, "John");
+            done();
         });
+        // });
     });
 
 
@@ -94,22 +98,22 @@ describe('database interface', function() {
 
     // Remove from collection
 
-    it('should remove user from db', function(done) {
-        User.remove({ "username": "John" }, function(err) {
-            if (err) {
-                console.log(err);
-                process.exit(1);
-            }
-            User.find({ "username": "John" }).exec(function(err, users) {
-                if (err) {
-                    console.log(err);
-                    process.exit(1);
-                }
-                assert.equal(users.length, 0);
-                done();
-            });
-        });
-    });
+    // it('should remove user from db', function(done) {
+    //     User.remove({ "username": "John" }, function(err) {
+    //         if (err) {
+    //             console.log(err);
+    //             process.exit(1);
+    //         }
+    //         User.find({ "username": "John" }).exec(function(err, users) {
+    //             if (err) {
+    //                 console.log(err);
+    //                 process.exit(1);
+    //             }
+    //             assert.equal(users.length, 0);
+    //             done();
+    //         });
+    //     });
+    // });
 
     it('should remove categories from db', function(done) {
         Categories.remove({ "name": "Oil paints" }, function(err) {
