@@ -15,19 +15,20 @@ describe('database interface', function() {
     it('sould be add user to Users collection', function(done) {
 
         var user = new User({
-            "name": "John",
-            "password": "doe"
+            "username": "John",
+            "password": "doe",
+            "email": "lanzeron@gmail.com"
         });
 
         user.save(function(err, result) {
             if (err) {
                 console.log(err);
             }
-            User.find({ "name": "John" }).exec(function(err, users) {
+            User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
                 }
-                var name = users[0].name;
+                var name = users[0].username;
                 assert.equal(name, "John");
                 done();
             });
@@ -87,12 +88,12 @@ describe('database interface', function() {
     // Remove from collection
 
     it('should remove user from db', function(done) {
-        User.remove({ "name": "John" }, function(err) {
+        User.remove({ "username": "John" }, function(err) {
             if (err) {
                 console.log(err);
                 process.exit(1);
             }
-            User.find({ "name": "John" }).exec(function(err, users) {
+            User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
                 }
