@@ -16,8 +16,8 @@ describe('database interface', function() {
 
         var user = new User({
             "username": "John",
-            "password": "doe",
-            "email": "fedyshyn.roma@gmail.com"
+            "email": "fedyshyn.roma@gmail.com",
+            "password": "doe"
         });
 
         user.save(function(err, result) {
@@ -25,7 +25,7 @@ describe('database interface', function() {
                 console.log(err);
                 process.exit(1);
             }
-            Users.find({ "username": "John" }).exec(function(err, users) {
+            User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
                     process.exit(1);
@@ -94,12 +94,12 @@ describe('database interface', function() {
     // Remove from collection
 
     it('should remove user from db', function(done) {
-        User.remove({ "name": "John" }, function(err) {
+        User.remove({ "username": "John" }, function(err) {
             if (err) {
                 console.log(err);
                 process.exit(1);
             }
-            User.find({ "name": "John" }).exec(function(err, users) {
+            User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
                     process.exit(1);
