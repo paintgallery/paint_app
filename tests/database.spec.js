@@ -4,6 +4,8 @@ var Categories = require('./../models/categories');
 var Picture = require('./../models/picture');
 var UserController = require('./../controllers/user')
 
+
+
 describe('database interface', function() {
     var connection;
 
@@ -30,7 +32,7 @@ describe('database interface', function() {
         //         console.log(err);
         //         process.exit(1);
         //     }
-        User.find({ "username": "John" }).exec(function(err, users) {
+       setTimeout( function() { User.find({ "username": "John" }).exec(function(err, users) {
             if (err) {
                 console.log(err);
                 process.exit(1);
@@ -39,6 +41,7 @@ describe('database interface', function() {
             assert.equal(username, "John");
             done();
         });
+       }, 1500);
         // });
     });
 
@@ -98,22 +101,22 @@ describe('database interface', function() {
 
     // Remove from collection
 
-    // it('should remove user from db', function(done) {
-    //     User.remove({ "username": "John" }, function(err) {
-    //         if (err) {
-    //             console.log(err);
-    //             process.exit(1);
-    //         }
-    //         User.find({ "username": "John" }).exec(function(err, users) {
-    //             if (err) {
-    //                 console.log(err);
-    //                 process.exit(1);
-    //             }
-    //             assert.equal(users.length, 0);
-    //             done();
-    //         });
-    //     });
-    // });
+    it('should remove user from db', function(done) {
+        User.remove({ "username": "John" }, function(err) {
+            if (err) {
+                console.log(err);
+                process.exit(1);
+            }
+            User.find({ "username": "John" }).exec(function(err, users) {
+                if (err) {
+                    console.log(err);
+                    process.exit(1);
+                }
+                assert.equal(users.length, 0);
+                done();
+            });
+        });
+    });
 
     it('should remove categories from db', function(done) {
         Categories.remove({ "name": "Oil paints" }, function(err) {
