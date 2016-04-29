@@ -7,6 +7,10 @@ var UserController = require('./../controllers/user')
 describe('database interface', function() {
     var connection;
 
+
+    // Connect to database
+
+
     it('should be connect to db', function(done) {
         assert.notEqual(connection, undefined);
         done();
@@ -20,14 +24,14 @@ describe('database interface', function() {
 
     });
 
+    // Add new user
+
     it('sould be add user to Users collection', function(done) {
 
 
 
 
-        UserController.add(user);
-
-        setTimeout(function() {
+        UserController.add(user, function() {
             User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
@@ -37,19 +41,19 @@ describe('database interface', function() {
                 assert.equal(username, "John");
                 done();
             });
-        }, 1500);
+        });
+
 
     });
 
-
+    // Edit user
 
     it('should edit user from Users collection', function(done) {
         var user = {
             username: "John",
             email: "lanzeron@gmail.com"
         }
-        UserController.edit(user);
-        setTimeout(function() {
+        UserController.update(user, function() {
             User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
@@ -59,7 +63,8 @@ describe('database interface', function() {
                 assert.equal(email, "lanzeron@gmail.com");
                 done();
             });
-        }, 1000);
+        });
+
 
 
 
@@ -70,9 +75,7 @@ describe('database interface', function() {
     // Remove from collection
 
     it('should remove user from db', function(done) {
-        UserController.delete(user);
-
-        setTimeout(function() {
+        UserController.remove(user, function() {
             User.find({ "username": "John" }).exec(function(err, users) {
                 if (err) {
                     console.log(err);
@@ -81,7 +84,8 @@ describe('database interface', function() {
                 assert.equal(users.length, 0);
                 done();
             });
-        }, 1000);
+        });
+
     });
 
 

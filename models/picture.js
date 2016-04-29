@@ -17,7 +17,7 @@ var PictureSchema = new mongoose.Schema({
     categories: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categories',
-        required: true
+        // required: true
     },
     price: {
         type: Number
