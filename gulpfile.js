@@ -5,7 +5,7 @@ var stylish = require('jshint-stylish');
 
 gulp.task('test', function() {
     var error = false;
-    gulp.src('./tests/**/*.*')
+    gulp.src('./tests/**/user.test.js')
         .pipe(mocha())
         .on('error', function() {
             console.log('Tests failed!');
@@ -28,5 +28,4 @@ gulp.task('jshint', function() {
 
 gulp.task('watch', function() {
     gulp.watch(['./*.js', 'models/*.js', './tests/*.js'], ['jshint']);
-    // gulp.watch(['./tests/*.js'], ['test']);
 });
