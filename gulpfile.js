@@ -33,6 +33,21 @@ gulp.task('picturetest', function() {
             }
         });
 });
+gulp.task('categoriesetest', function() {
+    var error = false;
+    gulp.src('./tests/categories.spec.js')
+        .pipe(mocha())
+        .on('error', function() {
+            console.log('Tests failed!');
+            error = true;
+        })
+        .on('end', function() {
+            if (!error) {
+                console.log('Tests succeeded!');
+                process.exit(0);
+            }
+        });
+});
 
 gulp.task('jshint', function() {
     return gulp.src(['./*.js', 'models/*.js', './tests/*.js'])
